@@ -1,10 +1,28 @@
 #include<stdio.h>
 #define SIZE 100
 int queue[SIZE],head=-1,tail=-1;
+int queueEmpty()
+{
+    if(head==-1) return 1;
+    else return 0;
+}
+int queueFull()
+{
+    if(tail==SIZE-1) return 1;
+    else return 0;
+}
+void queueOverflowError()
+{
+    printf("\nError : Queue Overflow");
+}
+void queueUnderflowError()
+{
+    printf("\nError : Queue underflow");
+}
 void enqueue(int data)
 {
-    if(tail==SIZE-1) printf("\nError : Queue Overflow");
-    else if(head==-1)
+    if(queueFull()) queueOverflowError();
+    else if(queueEmpty())
     {
         head=0;
         tail=0;
@@ -14,7 +32,7 @@ void enqueue(int data)
 }
 void dequeue()
 {
-    if(head==-1) printf("\nError : Queue underflow");
+    if(queueEmpty()) queueUnderflowError();
     else if(head==tail)
     {
         printf("\nDequeued : %d",queue[head]);
@@ -29,7 +47,7 @@ void dequeue()
 }
 void display()
 {
-    if(head==-1) printf("\nError : Queue Underflow");
+    if(queueEmpty()) queueUnderflowError();
     else
     {
         printf("\n");
